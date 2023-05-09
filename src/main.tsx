@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { AdditionalInfo, Home, Summary, YourDish } from 'lib/pages';
+import { AdditionalInfo, Home, Summary, YourDish } from 'pages';
 
 const router = createBrowserRouter([
   { path: '/', element: <Home /> },
