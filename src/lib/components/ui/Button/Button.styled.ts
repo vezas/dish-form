@@ -19,3 +19,13 @@ export const Button = styled.button`
     transform: translateY(0);
   }
 `;
+
+export const BackButton = styled(Button)`
+  background-color: ${({ theme }) => theme.colors.lightGray};
+  color: ${({ theme }) => theme.colors.darkGray};
+
+  &:hover {
+    background-color: inherit;
+    color: ${({ theme }) => theme.colors.darkBlue};
+  }
+`;
