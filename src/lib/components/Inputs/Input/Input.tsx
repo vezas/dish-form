@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import { FormField, StyledInput, StyledLabel } from './Input.styled';
 
 interface InputProps {
@@ -10,9 +11,20 @@ interface InputProps {
   value?: string | number;
   min?: number;
   max?: number;
+  register?: UseFormRegisterReturn;
 }
 
-export const Input: FC<InputProps> = ({ label, id, type, placeholder, step, value, min, max }) => {
+export const Input: FC<InputProps> = ({
+  label,
+  id,
+  type,
+  placeholder,
+  step,
+  value,
+  min,
+  max,
+  register
+}) => {
   return (
     <FormField>
       <StyledLabel htmlFor={id}>{label}</StyledLabel>
@@ -24,6 +36,7 @@ export const Input: FC<InputProps> = ({ label, id, type, placeholder, step, valu
         value={value}
         min={min}
         max={max}
+        {...register}
       />
     </FormField>
   );

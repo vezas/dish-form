@@ -1,21 +1,22 @@
 import { FC } from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import { FormField, StyledLabel } from './RadioInput.styled';
 
 interface RadioInputProps {
   id: string;
   label: string;
-  name: string;
   icon?: string;
+  register: UseFormRegisterReturn;
 }
 
-export const RadioInput: FC<RadioInputProps> = ({ label, id, name, icon }) => {
+export const RadioInput: FC<RadioInputProps> = ({ label, id, icon, register }) => {
   return (
     <FormField>
       <StyledLabel htmlFor={id}>
         <span>{label}</span>
         {icon && <img src={icon} alt={`${label} image`} />}
       </StyledLabel>
-      <input id={id} type='radio' name={name} value={id} />
+      <input {...register} id={id} type='radio' value={id} />
     </FormField>
   );
 };
