@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AdditionalInfo, Home, Layout, Summary, YourDish } from 'pages';
 import { GlobalStyles, Theme } from 'lib/styles';
+import { FormContextProvider } from 'lib/store';
 import { paths } from 'lib/constants';
 
 const routes = [
@@ -24,7 +25,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Theme>
     <React.StrictMode>
       <GlobalStyles />
-      <RouterProvider router={router} />
+      <FormContextProvider>
+        <RouterProvider router={router} />
+      </FormContextProvider>
     </React.StrictMode>
   </Theme>
 );

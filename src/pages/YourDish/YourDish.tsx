@@ -17,13 +17,7 @@ export const YourDish: FC = () => {
       <Paragraph>Provide name of your dish and enter the preparation time.</Paragraph>
       <Form>
         <Input id='name' label='Dish Name' type='text' placeholder='HexOcean pizza' />
-        <Input
-          id='preparation_time'
-          label='Preparation Time'
-          type='time'
-          step={2}
-          value='01:30:22'
-        />
+        <Input id='preparation_time' label='Preparation Time' type='time' step={2} />
         <ButtonsWrapper>
           <BackButton type='submit'>Go Back</BackButton>
           <Button type='submit'>Next Step</Button>

@@ -6,15 +6,25 @@ interface InputProps {
   label: string;
   type: string;
   placeholder?: string;
-  step?: number;
+  step?: number | string;
   value?: string | number;
+  min?: number;
+  max?: number;
 }
 
-export const Input: FC<InputProps> = ({ label, id, type, placeholder, step, value }) => {
+export const Input: FC<InputProps> = ({ label, id, type, placeholder, step, value, min, max }) => {
   return (
     <FormField>
       <StyledLabel htmlFor={id}>{label}</StyledLabel>
-      <StyledInput id={id} type={type} step={step} placeholder={placeholder} value={value} />
+      <StyledInput
+        id={id}
+        type={type}
+        step={step}
+        placeholder={placeholder}
+        value={value}
+        min={min}
+        max={max}
+      />
     </FormField>
   );
 };
