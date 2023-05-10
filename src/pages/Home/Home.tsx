@@ -12,7 +12,7 @@ export const Home: FC = () => {
   return (
     <Wrapper>
       <Heading as='h2'>Welcome!</Heading>
-      <Paragraph>To fill out the form about dish, please click the button bellow &darr;</Paragraph>
+      <Paragraph>To fill out the form about dish, please click the button bellow</Paragraph>
       <Button onClick={goToNextStep}>Fill out the form</Button>
     </Wrapper>
   );
