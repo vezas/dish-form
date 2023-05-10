@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Heading, Paragraph } from 'lib/components/Typography';
-import { Button } from 'lib/components/Button';
+import { Button, Heading, Paragraph } from 'lib/components/ui';
 import { paths } from 'lib/constants';
 import { Wrapper } from './Home.styled';
 

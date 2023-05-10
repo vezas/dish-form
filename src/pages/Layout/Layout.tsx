@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { Card } from 'lib/components/Card';
+import { Card } from 'lib/components/ui';
 import { Stepper } from 'lib/components/Stepper';
 
 export const Layout: FC = () => {
