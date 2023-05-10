@@ -1,4 +1,4 @@
-import { FC, useContext, useRef } from 'react';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
@@ -21,18 +21,49 @@ import { displaySubForm } from './helper';
 
 export const AdditionalInfo: FC = () => {
   const { formData, setFormData } = useContext(FormContext);
-  const { control, register, handleSubmit } = useForm<Partial<IDataForm>>({
-    defaultValues: { type: formData.type }
+  const [type, setType] = useState<string | null>(null);
+  const { control, register, unregister, handleSubmit } = useForm<Partial<IDataForm>>({
+    defaultValues: {
+      type: formData.type,
+      no_of_slices: formData.no_of_slices,
+      diameter: formData.diameter,
+      spiciness_scale: formData.spiciness_scale,
+      slices_of_bread: formData.slices_of_bread
+    }
   });
   const navigate = useNavigate();
   const submitRef = useRef<HTMLInputElement | null>(null);
 
-  const saveData = (data: Partial<IDataForm>) => setFormData({ ...formData, ...data });
+  const saveData = (data: Partial<IDataForm>) => {
+    setFormData({
+      ...formData,
+      ...data
+    });
+  };
 
   const navigateTo = (to: string) => {
     submitRef.current?.click();
     navigate(`/${to}`);
   };
+
+  const changeType = (newType: string) => {
+    setType(newType);
+    if (formData.type !== newType) {
+      delete formData.diameter;
+      delete formData.no_of_slices;
+      delete formData.spiciness_scale;
+      delete formData.slices_of_bread;
+
+      unregister('no_of_slices');
+      unregister('diameter');
+      unregister('spiciness_scale');
+      unregister('slices_of_bread');
+    }
+  };
+
+  useEffect(() => {
+    setType(formData.type);
+  }, []);
 
   return (
     <>
@@ -42,10 +73,17 @@ export const AdditionalInfo: FC = () => {
         <Form ref={submitRef} onSubmit={handleSubmit(saveData)}>
           <RadioFieldsWrapper>
             {dishTypes.map(({ id, label, icon }) => (
-              <RadioInput key={id} id={id} label={label} icon={icon} register={register('type')} />
+              <RadioInput
+                key={id}
+                id={id}
+                label={label}
+                icon={icon}
+                register={register('type')}
+                onChange={() => changeType(id)}
+              />
             ))}
           </RadioFieldsWrapper>
-          {displaySubForm(formData.type)}
+          {displaySubForm(type, register)}
           <ButtonsWrapper>
             <Button
               type='submit'

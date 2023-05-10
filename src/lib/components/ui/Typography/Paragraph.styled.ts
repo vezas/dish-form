@@ -5,3 +5,8 @@ export const Paragraph = styled.p`
   font-weight: ${({ theme }) => theme.font.weight400};
   color: ${({ theme }) => theme.colors.darkGray};
 `;
+
+export const AccentedParagraph = styled(Paragraph)`
+  color: ${({ theme }) => theme.colors.darkBlue};
+  font-weight: ${({ theme }) => theme.font.weight700};
+`;
