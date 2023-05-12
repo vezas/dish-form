@@ -55,7 +55,7 @@ export const Summary: FC = () => {
         </>
       </SummaryWrapper>
       <ButtonsWrapper>
-        <Button>Confirm</Button>
+        <Button type='button'>Confirm</Button>
       </ButtonsWrapper>
     </Wrapper>
   );

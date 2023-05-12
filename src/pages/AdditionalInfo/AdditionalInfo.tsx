@@ -1,11 +1,10 @@
-import { FC, useContext, useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FC, RefObject, useContext, useEffect, useRef, useState } from 'react';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import { Form } from 'lib/components/Form';
 import { RadioInput } from 'lib/components/Inputs';
 import {
-  BackButton,
   Button,
   ButtonsWrapper,
   Heading,
@@ -20,6 +19,7 @@ import { dishTypes } from './data';
 import { displaySubForm } from './helper';
 
 export const AdditionalInfo: FC = () => {
+  const { buttonRef }: { buttonRef: RefObject<HTMLButtonElement> } = useOutletContext();
   const { formData, setFormData } = useContext(FormContext);
   const [type, setType] = useState<string | null>(null);
   const { control, register, unregister, handleSubmit } = useForm<Partial<IDataForm>>({
@@ -86,6 +86,7 @@ export const AdditionalInfo: FC = () => {
           {displaySubForm(type, register)}
           <ButtonsWrapper>
             <Button
+              ref={buttonRef}
               type='submit'
               onClick={() => {
                 navigateTo(paths.summary);
@@ -93,9 +94,14 @@ export const AdditionalInfo: FC = () => {
             >
               Next Step
             </Button>
-            <BackButton type='submit' onClick={() => navigateTo(paths.yourDish)}>
+            <Button
+              ref={buttonRef}
+              type='submit'
+              variant='back-btn'
+              onClick={() => navigateTo(paths.yourDish)}
+            >
               Go Back
-            </BackButton>
+            </Button>
           </ButtonsWrapper>
         </Form>
       </Wrapper>

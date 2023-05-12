@@ -1,5 +1,5 @@
-import { FC, useContext, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FC, RefObject, useContext, useRef } from 'react';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import { Form } from 'lib/components/Form';
@@ -16,6 +16,7 @@ import { IDataForm } from 'lib/types';
 import { paths } from 'lib/constants';
 
 export const YourDish: FC = () => {
+  const { buttonRef }: { buttonRef: RefObject<HTMLButtonElement> } = useOutletContext();
   const { formData, setFormData } = useContext(FormContext);
   const { control, register, handleSubmit } = useForm<Partial<IDataForm>>({
     defaultValues: { name: formData.name, preparation_time: formData.preparation_time }
@@ -51,7 +52,7 @@ export const YourDish: FC = () => {
             register={register('preparation_time')}
           />
           <ButtonsWrapper>
-            <Button type='submit' onClick={() => navigateTo(paths.additionalInfo)}>
+            <Button ref={buttonRef} type='submit' onClick={() => navigateTo(paths.additionalInfo)}>
               Next Step
             </Button>
           </ButtonsWrapper>
