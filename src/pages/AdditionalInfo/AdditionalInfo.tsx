@@ -10,6 +10,7 @@ import {
   Heading,
   Paragraph,
   RadioFieldsWrapper,
+  StyledErrorMessage,
   SubPageWrapper as Wrapper
 } from 'lib/components/ui';
 import { FormContext } from 'lib/store';
@@ -22,14 +23,23 @@ export const AdditionalInfo: FC = () => {
   const { buttonRef }: { buttonRef: RefObject<HTMLButtonElement> } = useOutletContext();
   const { formData, setFormData } = useContext(FormContext);
   const [type, setType] = useState<string | null>(null);
-  const { control, register, unregister, handleSubmit } = useForm<Partial<IDataForm>>({
+  const {
+    control,
+    register,
+    unregister,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+    watch
+  } = useForm<Partial<IDataForm>>({
     defaultValues: {
       type: formData.type,
       no_of_slices: formData.no_of_slices,
       diameter: formData.diameter,
       spiciness_scale: formData.spiciness_scale,
       slices_of_bread: formData.slices_of_bread
-    }
+    },
+    mode: 'onChange'
   });
   const navigate = useNavigate();
   const submitRef = useRef<HTMLInputElement | null>(null);
@@ -46,8 +56,27 @@ export const AdditionalInfo: FC = () => {
     navigate(`/${to}`);
   };
 
+  const typeDetailsValidation = () => {
+    if (type === 'pizza') {
+      return !watch('no_of_slices') || !watch('diameter');
+    }
+
+    if (type === 'soup') {
+      return !watch('spiciness_scale');
+    }
+
+    if (type === 'sandwich') {
+      return !watch('slices_of_bread');
+    }
+  };
+
+  const buttonDisabled =
+    !watch('type') || typeDetailsValidation() || Boolean(Object.keys(errors).length);
+
   const changeType = (newType: string) => {
     setType(newType);
+    setValue('type', newType);
+
     if (formData.type !== newType) {
       delete formData.diameter;
       delete formData.no_of_slices;
@@ -58,6 +87,10 @@ export const AdditionalInfo: FC = () => {
       unregister('diameter');
       unregister('spiciness_scale');
       unregister('slices_of_bread');
+
+      if (newType === 'soup') {
+        setValue('spiciness_scale', 1);
+      }
     }
   };
 
@@ -78,14 +111,18 @@ export const AdditionalInfo: FC = () => {
                 id={id}
                 label={label}
                 icon={icon}
-                register={register('type')}
+                register={register('type', {
+                  required: { value: true, message: 'Type of dish is required' }
+                })}
                 onChange={() => changeType(id)}
               />
             ))}
+            <StyledErrorMessage>{errors.type?.message}</StyledErrorMessage>
           </RadioFieldsWrapper>
-          {displaySubForm(type, register)}
+          {displaySubForm(type, register, errors)}
           <ButtonsWrapper>
             <Button
+              disabled={buttonDisabled}
               ref={buttonRef}
               type='submit'
               onClick={() => {

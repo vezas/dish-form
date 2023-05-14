@@ -6,6 +6,7 @@ interface ButtonProps {
   type: 'button' | 'submit';
   variant?: 'back-btn';
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 interface Click {
@@ -13,7 +14,7 @@ interface Click {
 }
 
 export const Button = forwardRef<Click, ButtonProps>(function Button(
-  { children, type, variant, onClick },
+  { children, type, variant, disabled, onClick },
   ref
 ) {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -25,7 +26,13 @@ export const Button = forwardRef<Click, ButtonProps>(function Button(
   }));
 
   return (
-    <StyledButton type={type} variant={variant} ref={buttonRef} onClick={onClick}>
+    <StyledButton
+      type={type}
+      disabled={disabled}
+      variant={variant}
+      ref={buttonRef}
+      onClick={onClick}
+    >
       {children}
     </StyledButton>
   );

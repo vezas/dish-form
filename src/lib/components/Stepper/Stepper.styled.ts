@@ -27,6 +27,17 @@ export const StyledNavLink = styled(NavLink)`
     color: ${({ theme }) => theme.colors.blue};
   }
 
+  &.disabled {
+    pointer-events: none;
+  }
+
+  &.disabled > span {
+    border-color: ${({ theme }) => theme.colors.darkGray};
+    background-color: ${({ theme }) => theme.colors.darkGray};
+    color: ${({ theme }) => theme.colors.blue};
+    transform: scale(0.8);
+  }
+
   @media ${devices.mobileL} {
     font-size: 1.25rem;
   }

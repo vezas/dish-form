@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
+import { StyledErrorMessage } from 'lib/components/ui';
 import { FormField, StyledInput, StyledLabel } from './Input.styled';
 
 interface InputProps {
@@ -12,6 +13,7 @@ interface InputProps {
   min?: number;
   max?: number;
   register?: UseFormRegisterReturn;
+  errorMessage?: string | FieldError | undefined;
 }
 
 export const Input: FC<InputProps> = ({
@@ -23,7 +25,8 @@ export const Input: FC<InputProps> = ({
   value,
   min,
   max,
-  register
+  register,
+  errorMessage
 }) => {
   return (
     <FormField>
@@ -38,6 +41,9 @@ export const Input: FC<InputProps> = ({
         max={max}
         {...register}
       />
+      <StyledErrorMessage>
+        <>{errorMessage}</>
+      </StyledErrorMessage>
     </FormField>
   );
 };

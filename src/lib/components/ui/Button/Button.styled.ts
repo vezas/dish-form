@@ -26,4 +26,11 @@ export const StyledButton = styled.button<StyledButtonProps>`
   &:active {
     transform: translateY(0);
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: ${({ theme }) => theme.colors.gray};
+    color: ${({ theme }) => theme.colors.white};
+    transform: none;
+  }
 `;
