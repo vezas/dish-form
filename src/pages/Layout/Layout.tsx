@@ -10,9 +10,11 @@ export const Layout: FC = () => {
     buttonRef.current?.click();
   };
 
+  const baseURL = import.meta.env.BASE_URL || '/';
+
   return (
     <Card>
-      {pathname.length > 1 && <Stepper onRouteChange={onRouteChange} />}
+      {pathname.length > 1 && pathname !== baseURL && <Stepper onRouteChange={onRouteChange} />}
       <Outlet context={{ buttonRef: buttonRef }} />
     </Card>
   );

@@ -6,8 +6,10 @@ import { GlobalStyles, Theme } from 'lib/styles';
 import { FormContextProvider } from 'lib/store';
 import { paths } from 'lib/constants';
 
+const baseURL = import.meta.env.BASE_URL || '/';
+
 const routes = [
-  { path: '/', element: <Home /> },
+  { path: baseURL, element: <Home /> },
   { path: paths.yourDish, element: <YourDish /> },
   { path: paths.additionalInfo, element: <AdditionalInfo /> },
   { path: paths.summary, element: <Summary /> }
@@ -15,7 +17,7 @@ const routes = [
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: baseURL,
     element: <Layout />,
     children: routes.map(({ path, element }) => ({ path, element }))
   }

@@ -35,7 +35,7 @@ export const YourDish: FC = () => {
 
   const navigateTo = (to: string) => {
     submitRef.current?.click();
-    navigate(`/${to}`);
+    navigate(`${to}`);
   };
 
   const buttonDisabled =

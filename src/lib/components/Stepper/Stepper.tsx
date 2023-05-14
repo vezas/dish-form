@@ -21,11 +21,11 @@ export const Stepper: FC<StepperProps> = ({ onRouteChange }) => {
     if (
       ((!name || !preparation_time) &&
         step !== paths.yourDish &&
-        pathname === `/${paths.yourDish}`) ||
+        pathname === `${paths.yourDish}`) ||
       (!type &&
         step !== paths.additionalInfo &&
         step !== paths.yourDish &&
-        (pathname === `/${paths.yourDish}` || pathname === `/${paths.additionalInfo}`))
+        (pathname === `${paths.yourDish}` || pathname === `${paths.additionalInfo}`))
     ) {
       return 'disabled';
     }
@@ -36,7 +36,7 @@ export const Stepper: FC<StepperProps> = ({ onRouteChange }) => {
       {steps.map((step, i) => (
         <li key={step}>
           <StyledNavLink
-            to={`/${step}`}
+            to={`${step}`}
             className={checkPaths(step)}
             onClick={() => onRouteChange()}
           >
