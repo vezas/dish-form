@@ -30,6 +30,8 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          BASE_URL: /dish-form/
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4

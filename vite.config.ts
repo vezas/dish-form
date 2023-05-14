@@ -1,7 +1,10 @@
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import { config } from 'dotenv';
 
-// https://vitejs.dev/config/
+config();
+
 export default defineConfig({
-  plugins: [tsconfigPaths()]
+  plugins: [tsconfigPaths()],
+  base: process.env.BASE_URL || '/'
 });
