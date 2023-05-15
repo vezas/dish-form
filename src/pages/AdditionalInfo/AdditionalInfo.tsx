@@ -1,7 +1,6 @@
 import { FC, RefObject, useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-// import { DevTool } from '@hookform/devtools';
 import { Form } from 'lib/components/Form';
 import { RadioInput } from 'lib/components/Inputs';
 import {
@@ -24,7 +23,6 @@ export const AdditionalInfo: FC = () => {
   const { formData, setFormData } = useContext(FormContext);
   const [type, setType] = useState<string | null>(null);
   const {
-    // control,
     register,
     unregister,
     handleSubmit,
@@ -99,50 +97,47 @@ export const AdditionalInfo: FC = () => {
   }, []);
 
   return (
-    <>
-      <Wrapper>
-        <Heading as='h2'>Additional Info</Heading>
-        <Paragraph>Choose type of dish and fill additional info.</Paragraph>
-        <Form ref={submitRef} onSubmit={handleSubmit(saveData)}>
-          <RadioFieldsWrapper>
-            {dishTypes.map(({ id, label, icon }) => (
-              <RadioInput
-                key={id}
-                id={id}
-                label={label}
-                icon={icon}
-                register={register('type', {
-                  required: { value: true, message: 'Type of dish is required' }
-                })}
-                onChange={() => changeType(id)}
-              />
-            ))}
-            <StyledErrorMessage>{errors.type?.message}</StyledErrorMessage>
-          </RadioFieldsWrapper>
-          {displaySubForm(type, register, errors)}
-          <ButtonsWrapper>
-            <Button
-              disabled={buttonDisabled}
-              ref={buttonRef}
-              type='submit'
-              onClick={() => {
-                navigateTo(paths.summary);
-              }}
-            >
-              Next Step
-            </Button>
-            <Button
-              ref={buttonRef}
-              type='submit'
-              variant='back-btn'
-              onClick={() => navigateTo(paths.yourDish)}
-            >
-              Go Back
-            </Button>
-          </ButtonsWrapper>
-        </Form>
-      </Wrapper>
-      {/* <DevTool control={control} placement='bottom-right' /> */}
-    </>
+    <Wrapper>
+      <Heading as='h2'>Additional Info</Heading>
+      <Paragraph>Choose type of dish and fill additional info.</Paragraph>
+      <Form ref={submitRef} onSubmit={handleSubmit(saveData)}>
+        <RadioFieldsWrapper>
+          {dishTypes.map(({ id, label, icon }) => (
+            <RadioInput
+              key={id}
+              id={id}
+              label={label}
+              icon={icon}
+              register={register('type', {
+                required: { value: true, message: 'Type of dish is required' }
+              })}
+              onChange={() => changeType(id)}
+            />
+          ))}
+          <StyledErrorMessage>{errors.type?.message}</StyledErrorMessage>
+        </RadioFieldsWrapper>
+        {displaySubForm(type, register, errors)}
+        <ButtonsWrapper>
+          <Button
+            disabled={buttonDisabled}
+            ref={buttonRef}
+            type='submit'
+            onClick={() => {
+              navigateTo(paths.summary);
+            }}
+          >
+            Next Step
+          </Button>
+          <Button
+            ref={buttonRef}
+            type='submit'
+            variant='back-btn'
+            onClick={() => navigateTo(paths.yourDish)}
+          >
+            Go Back
+          </Button>
+        </ButtonsWrapper>
+      </Form>
+    </Wrapper>
   );
 };

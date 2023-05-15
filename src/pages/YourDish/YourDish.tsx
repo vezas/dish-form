@@ -1,7 +1,6 @@
 import { FC, RefObject, useContext, useRef } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-// import { DevTool } from '@hookform/devtools';
 import { Form } from 'lib/components/Form';
 import {
   Button,
@@ -19,7 +18,6 @@ export const YourDish: FC = () => {
   const { buttonRef }: { buttonRef: RefObject<HTMLButtonElement> } = useOutletContext();
   const { formData, setFormData } = useContext(FormContext);
   const {
-    // control,
     register,
     handleSubmit,
     formState: { errors },
@@ -42,49 +40,46 @@ export const YourDish: FC = () => {
     !watch('name') || !watch('preparation_time') || Boolean(Object.keys(errors).length);
 
   return (
-    <>
-      <Wrapper>
-        <Heading as='h2'>Your Dish</Heading>
-        <Paragraph>Provide name of your dish and enter the preparation time.</Paragraph>
-        <Form ref={submitRef} onSubmit={handleSubmit(saveData)}>
-          <Input
-            id='name'
-            label='Dish Name'
-            type='text'
-            placeholder='HexOcean pizza'
-            register={register('name', {
-              required: { value: true, message: 'Name of dish is requried' },
-              minLength: { value: 3, message: 'Name of dish should be at least 3' },
-              maxLength: { value: 20, message: 'Name of dish should not be longer than 20' }
-            })}
-            errorMessage={errors.name?.message}
-          />
-          <Input
-            id='preparation_time'
-            label='Preparation Time'
-            type='time'
-            step={2}
-            register={register('preparation_time', {
-              required: {
-                value: true,
-                message: 'Preparation time is requried and should be entered in schema: 00:00:00'
-              }
-            })}
-            errorMessage={errors.preparation_time?.message}
-          />
-          <ButtonsWrapper>
-            <Button
-              disabled={buttonDisabled}
-              ref={buttonRef}
-              type='submit'
-              onClick={() => navigateTo(paths.additionalInfo)}
-            >
-              Next Step
-            </Button>
-          </ButtonsWrapper>
-        </Form>
-      </Wrapper>
-      {/* <DevTool control={control} placement='bottom-right' /> */}
-    </>
+    <Wrapper>
+      <Heading as='h2'>Your Dish</Heading>
+      <Paragraph>Provide name of your dish and enter the preparation time.</Paragraph>
+      <Form ref={submitRef} onSubmit={handleSubmit(saveData)}>
+        <Input
+          id='name'
+          label='Dish Name'
+          type='text'
+          placeholder='HexOcean pizza'
+          register={register('name', {
+            required: { value: true, message: 'Name of dish is requried' },
+            minLength: { value: 3, message: 'Name of dish should be at least 3' },
+            maxLength: { value: 20, message: 'Name of dish should not be longer than 20' }
+          })}
+          errorMessage={errors.name?.message}
+        />
+        <Input
+          id='preparation_time'
+          label='Preparation Time'
+          type='time'
+          step={2}
+          register={register('preparation_time', {
+            required: {
+              value: true,
+              message: 'Preparation time is requried and should be entered in schema: 00:00:00'
+            }
+          })}
+          errorMessage={errors.preparation_time?.message}
+        />
+        <ButtonsWrapper>
+          <Button
+            disabled={buttonDisabled}
+            ref={buttonRef}
+            type='submit'
+            onClick={() => navigateTo(paths.additionalInfo)}
+          >
+            Next Step
+          </Button>
+        </ButtonsWrapper>
+      </Form>
+    </Wrapper>
   );
 };
