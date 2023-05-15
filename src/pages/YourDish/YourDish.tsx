@@ -35,7 +35,7 @@ export const YourDish: FC = () => {
 
   const navigateTo = (to: string) => {
     submitRef.current?.click();
-    navigate(`${to}`);
+    navigate(to);
   };
 
   const buttonDisabled =
@@ -67,7 +67,7 @@ export const YourDish: FC = () => {
             register={register('preparation_time', {
               required: { value: true, message: 'Preparation time is requried' },
               pattern: {
-                value: /(?:[01]\d|9[0-9]):(?:[0-5]\d):(?:[0-5]\d)/,
+                value: /(?:[02]\d|4[0-9]):(?:[0-5]\d):(?:[0-5]\d)/,
                 message: 'Preparation time should be entered in schema: 00:00:00'
               }
             })}

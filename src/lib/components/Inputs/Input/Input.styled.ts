@@ -33,5 +33,3 @@ export const StyledInput = styled.input`
     border-color: ${({ theme }) => theme.colors.lightBlue};
   }
 `;
-
-

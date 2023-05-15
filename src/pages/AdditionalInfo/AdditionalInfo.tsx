@@ -53,7 +53,7 @@ export const AdditionalInfo: FC = () => {
 
   const navigateTo = (to: string) => {
     submitRef.current?.click();
-    navigate(`${to}`);
+    navigate(to);
   };
 
   const hasEmptyTypeDetails = () => {

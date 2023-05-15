@@ -28,7 +28,6 @@ export const Summary: FC = () => {
 
   //eslint-disable-next-line
   const customError: any = isError && error;
-  console.log(customError);
 
   const typeDetailsValidation = () => {
     if (type === DishTypes.Soup) {
