@@ -65,7 +65,11 @@ export const YourDish: FC = () => {
             type='time'
             step={2}
             register={register('preparation_time', {
-              required: { value: true, message: 'Preparation time is requried' }
+              required: { value: true, message: 'Preparation time is requried' },
+              pattern: {
+                value: /(?:[01]\d|9[0-9]):(?:[0-5]\d):(?:[0-5]\d)/,
+                message: 'Preparation time should be entered in schema: 00:00:00'
+              }
             })}
             errorMessage={errors.preparation_time?.message}
           />

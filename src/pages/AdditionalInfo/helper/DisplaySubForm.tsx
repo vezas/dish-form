@@ -37,7 +37,7 @@ const PizzaFields: FC<FieldsProps> = ({ register, errors }) => (
       register={register('diameter', {
         valueAsNumber: true,
         required: { value: true, message: 'Diameter of pizza is required' },
-        min: { value: 1, message: 'Diameter of pizza should be at least 10' },
+        min: { value: 10, message: 'Diameter of pizza should be at least 10' },
         max: { value: 100, message: 'Diameter of pizza should not be higher than 100' }
       })}
     />

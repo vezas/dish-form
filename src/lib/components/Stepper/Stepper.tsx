@@ -41,7 +41,7 @@ export const Stepper: FC<StepperProps> = ({ onRouteChange }) => {
             onClick={() => onRouteChange()}
           >
             <StyledNumeration>{i + 1}</StyledNumeration>
-            {step.replace('-', ' ').toUpperCase()}
+            {step.replace('/', '').split('/').reverse()[0].replace('-', ' ').toUpperCase()}
           </StyledNavLink>
         </li>
       ))}
