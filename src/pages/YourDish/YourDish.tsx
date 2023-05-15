@@ -54,7 +54,7 @@ export const YourDish: FC = () => {
             placeholder='HexOcean pizza'
             register={register('name', {
               required: { value: true, message: 'Name of dish is requried' },
-              minLength: { value: 2, message: 'Name of dish should be at least 2' },
+              minLength: { value: 3, message: 'Name of dish should be at least 3' },
               maxLength: { value: 20, message: 'Name of dish should not be longer than 20' }
             })}
             errorMessage={errors.name?.message}

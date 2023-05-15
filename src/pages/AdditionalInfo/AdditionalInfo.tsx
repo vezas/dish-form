@@ -15,7 +15,7 @@ import {
 } from 'lib/components/ui';
 import { FormContext } from 'lib/store';
 import { IDataForm } from 'lib/types';
-import { paths } from 'lib/constants';
+import { DishTypes, paths } from 'lib/constants';
 import { dishTypes } from './data';
 import { displaySubForm } from './helper';
 
@@ -56,22 +56,22 @@ export const AdditionalInfo: FC = () => {
     navigate(`${to}`);
   };
 
-  const typeDetailsValidation = () => {
-    if (type === 'pizza') {
+  const hasEmptyTypeDetails = () => {
+    if (type === DishTypes.Pizza) {
       return !watch('no_of_slices') || !watch('diameter');
     }
 
-    if (type === 'soup') {
+    if (type === DishTypes.Soup) {
       return !watch('spiciness_scale');
     }
 
-    if (type === 'sandwich') {
+    if (type === DishTypes.Sandwich) {
       return !watch('slices_of_bread');
     }
   };
 
   const buttonDisabled =
-    !watch('type') || typeDetailsValidation() || Boolean(Object.keys(errors).length);
+    !watch('type') || hasEmptyTypeDetails() || Boolean(Object.keys(errors).length);
 
   const changeType = (newType: string) => {
     setType(newType);
@@ -88,7 +88,7 @@ export const AdditionalInfo: FC = () => {
       unregister('spiciness_scale');
       unregister('slices_of_bread');
 
-      if (newType === 'soup') {
+      if (newType === DishTypes.Soup) {
         setValue('spiciness_scale', 1);
       }
     }

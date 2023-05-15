@@ -1,7 +1,8 @@
 import { FC, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
-import { paths } from 'lib/constants';
+import { DishTypes, paths } from 'lib/constants';
 import { FormContext } from 'lib/store';
+import { hasEmptyValues } from 'lib/helpers';
 import { List, StyledNavLink, StyledNumeration } from './Stepper.styled';
 
 interface StepperProps {
@@ -10,37 +11,59 @@ interface StepperProps {
 
 export const Stepper: FC<StepperProps> = ({ onRouteChange }) => {
   const {
-    formData: { name, preparation_time, type }
+    formData: {
+      name,
+      preparation_time,
+      type,
+      spiciness_scale,
+      slices_of_bread,
+      diameter,
+      no_of_slices
+    }
   } = useContext(FormContext);
 
-  const steps = Object.values(paths);
+  const steps = Object.values(paths).slice(0, -1);
 
-  const checkPaths = (step: string) => {
+  const hasEmptyTypeDetails = () => {
+    if (type === DishTypes.Soup) {
+      return hasEmptyValues({ spiciness_scale });
+    }
+
+    if (type === DishTypes.Sandwich) {
+      return hasEmptyValues({ slices_of_bread });
+    }
+
+    if (type === DishTypes.Pizza) {
+      return hasEmptyValues({ diameter, no_of_slices });
+    }
+  };
+
+  const checkStep = (step: number) => {
     const { pathname } = useLocation();
 
+    if (step !== 0 && pathname === paths.yourDish && hasEmptyValues({ name, preparation_time })) {
+      return true;
+    }
+
     if (
-      ((!name || !preparation_time) &&
-        step !== paths.yourDish &&
-        pathname === `${paths.yourDish}`) ||
-      (!type &&
-        step !== paths.additionalInfo &&
-        step !== paths.yourDish &&
-        (pathname === `${paths.yourDish}` || pathname === `${paths.additionalInfo}`))
+      step === 2 &&
+      pathname !== paths.summary &&
+      (hasEmptyValues({ name, preparation_time, type }) || hasEmptyTypeDetails())
     ) {
-      return 'disabled';
+      return true;
     }
   };
 
   return (
     <List>
-      {steps.map((step, i) => (
+      {steps.map((step, index) => (
         <li key={step}>
           <StyledNavLink
             to={`${step}`}
-            className={checkPaths(step)}
+            className={checkStep(index) ? 'disabled' : ''}
             onClick={() => onRouteChange()}
           >
-            <StyledNumeration>{i + 1}</StyledNumeration>
+            <StyledNumeration>{index + 1}</StyledNumeration>
             {step.replace('/', '').split('/').reverse()[0].replace('-', ' ').toUpperCase()}
           </StyledNavLink>
         </li>

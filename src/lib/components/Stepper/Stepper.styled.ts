@@ -32,10 +32,7 @@ export const StyledNavLink = styled(NavLink)`
   }
 
   &.disabled > span {
-    border-color: ${({ theme }) => theme.colors.darkGray};
-    background-color: ${({ theme }) => theme.colors.darkGray};
-    color: ${({ theme }) => theme.colors.blue};
-    transform: scale(0.8);
+    opacity: 0.5;
   }
 
   @media ${devices.mobileL} {

@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { Input } from 'lib/components/Inputs';
 import { IDataForm } from 'lib/types';
+import { DishTypes } from 'lib/constants';
 
 interface FieldsProps {
   //eslint-disable-next-line
@@ -86,7 +87,15 @@ export const displaySubForm = (
   register: UseFormRegister<any>,
   errors: FieldErrors<Partial<IDataForm>>
 ) => {
-  if (type === 'pizza') return <PizzaFields register={register} errors={errors} />;
-  if (type === 'soup') return <SoupFields register={register} errors={errors} />;
-  if (type === 'sandwich') return <SandwichFields register={register} errors={errors} />;
+  if (type === DishTypes.Pizza) {
+    return <PizzaFields register={register} errors={errors} />;
+  }
+
+  if (type === DishTypes.Soup) {
+    return <SoupFields register={register} errors={errors} />;
+  }
+
+  if (type === DishTypes.Sandwich) {
+    return <SandwichFields register={register} errors={errors} />;
+  }
 };
