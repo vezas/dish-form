@@ -1,7 +1,7 @@
 import { FC, RefObject, useContext, useRef } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { DevTool } from '@hookform/devtools';
+// import { DevTool } from '@hookform/devtools';
 import { Form } from 'lib/components/Form';
 import {
   Button,
@@ -19,7 +19,7 @@ export const YourDish: FC = () => {
   const { buttonRef }: { buttonRef: RefObject<HTMLButtonElement> } = useOutletContext();
   const { formData, setFormData } = useContext(FormContext);
   const {
-    control,
+    // control,
     register,
     handleSubmit,
     formState: { errors },
@@ -65,10 +65,9 @@ export const YourDish: FC = () => {
             type='time'
             step={2}
             register={register('preparation_time', {
-              required: { value: true, message: 'Preparation time is requried' },
-              pattern: {
-                value: /(?:[02]\d|4[0-9]):(?:[0-5]\d):(?:[0-5]\d)/,
-                message: 'Preparation time should be entered in schema: 00:00:00'
+              required: {
+                value: true,
+                message: 'Preparation time is requried and should be entered in schema: 00:00:00'
               }
             })}
             errorMessage={errors.preparation_time?.message}
@@ -85,7 +84,7 @@ export const YourDish: FC = () => {
           </ButtonsWrapper>
         </Form>
       </Wrapper>
-      <DevTool control={control} placement='bottom-right' />
+      {/* <DevTool control={control} placement='bottom-right' /> */}
     </>
   );
 };
