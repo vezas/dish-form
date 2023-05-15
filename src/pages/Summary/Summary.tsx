@@ -7,6 +7,7 @@ import {
   ButtonsWrapper,
   Heading,
   Paragraph,
+  StyledErrorMessage,
   SubPageWrapper as Wrapper,
   SummaryWrapper
 } from 'lib/components/ui';
@@ -21,7 +22,13 @@ export const Summary: FC = () => {
   const { name, preparation_time, type, spiciness_scale, slices_of_bread, diameter, no_of_slices } =
     formData;
 
-  isError && error instanceof Error && toast.error(error.message);
+  if (isError && error instanceof Error) {
+    toast.error(error.message);
+  }
+
+  //eslint-disable-next-line
+  const customError: any = isError && error;
+  console.log(customError);
 
   const typeDetailsValidation = () => {
     if (type === DishTypes.Soup) {
@@ -80,6 +87,14 @@ export const Summary: FC = () => {
             )}
           </>
         </SummaryWrapper>
+        {customError &&
+          customError.response &&
+          //eslint-disable-next-line
+          Object.entries(customError.response.data).map((error: any) => (
+            <StyledErrorMessage key={error[0]}>
+              {error[0]} - {error[1]}
+            </StyledErrorMessage>
+          ))}
         <ButtonsWrapper>
           <Button
             type='button'
